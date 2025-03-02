@@ -2,42 +2,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>{% block title %}{{ id }}{% endblock %}</title>
+    <meta charset="UTF-8">
+    <title>{% block title %}{{ id }}{% endblock %}</title>
 </head>
 <body>
 {% block content %}
-<table style="border: 2px solid cornflowerblue;">
 
-    <tr>
-         <th>
-            id
-        </th>
-         <th>
-            title
-        </th>
-         <th>
-            author
-        </th>
-         <th>
-            description
-        </th>
-        <th>
-            published
-        </th>
-    </tr>
-<tr>
-    <td>{{ id }}</td>
-    <td>{{ Post.title }}</td>
-    <td>{{ Post.author }}</td>
-        <td>{{ Post.content }}</td>
-    <td>{{ Post.publish }}</td>
-
-  </tr>
-
-
-
-</table>
+    <div style="display: grid;grid-template-columns: repeat(2, minmax(0, 1fr));gap: 10px">
+        <h3>id:{{ id }}</h3>
+        <h3>title:{{ Post.title }}</h3>
+        <h3>author:{{ Post.author }}</h3>
+        <h3>description:{{ Post.content }}</h3>
+        <h3 style="grid-column: span 2;">published at :{{ Post.publish }}</h3>
+    </div>
 {% endblock %}
 </body>
 </html>

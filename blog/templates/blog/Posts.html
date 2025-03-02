@@ -3,25 +3,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title%}Posts{% endblock %}</title>
+    <title>{% block title %}Posts{% endblock %}</title>
 </head>
 <body>
 {% block content %}
     <ul style="text-align: left">
-    {% for post in Posts %}
-        <li>{{ post.title }} By <span style="text-decoration: underline">
+        {% for post in Posts %}
+            <li>
+                <a href={{ post.get_absolute_url }}> {{ post.title }} By <span
+                        style="text-decoration: underline">
             {{ post.author }}
         </span> in <span style="font-size: 10px">
             {{ post.publish }}
         </span>:
-        <span>
+                    <span>
             {{ post.content|truncatewords:1 }}
         </span>
-        </li>
-    {% endfor %}
+                </a>
+            </li>
+
+        {% endfor %}
 
 
     </ul>
+    {% include 'partials/Pagination.html' with page=Posts %}
 {% endblock %}
 </body>
 </html>
