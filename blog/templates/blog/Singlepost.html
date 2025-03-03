@@ -15,6 +15,7 @@
         <h3>description:{{ Post.content }}</h3>
         <h3 style="grid-column: span 2;">published at :{{ Post.publish }}</h3>
     </div>
+    <a href={% url "blog:postShare" id %}>Share Post</a>
 {% endblock %}
 </body>
 </html>
