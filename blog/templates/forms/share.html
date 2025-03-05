@@ -1,16 +1,6 @@
 {% extends 'parent/base.html' %}
 {% block title %}Share{% endblock %}
 {% block content %}
-    {% if sent %}
-        <h1 style="color: greenyellow">The email has been sent</h1>
-        <p>Post {{ post.title }} successfully sent to {{ form.cleaned_data.to }}</p>
-    {% else %}
-        <h1 style="color: coral">Share '{{ post.title }}' By {{ post.author }} with email service.</h1>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Send</button>
-        </form>
-    {% endif %}
+    {{ form.as_p }}
 {% endblock %}
 {% csrf_token %}

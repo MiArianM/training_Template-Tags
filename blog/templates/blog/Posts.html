@@ -1,4 +1,6 @@
 {% extends 'parent/base.html' %}
+{% load templateTags %}
+{% load jformat %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,17 +9,28 @@
 </head>
 <body>
 {% block content %}
-    <ul style="text-align: left">
-        {% for post in Posts %}
+    <h3>Post counts are {% posts_count %} Right now!</h3>
+    <div style="display: flex;flex-direction: column;gap: 5px">
+        <h6>
+            {% RT_Most %}
+        </h6>
+        <h6>
+            {% RT_Lowest %}
+        </h6>
+    </div>
+    <ul style="text-align: left;display: flex;flex-direction: column;gap: 10px;list-style-type: lower-roman ">
+        {% for post in post_list %}
             <li>
-                <a href={{ post.get_absolute_url }}> {{ post.title }} By <span
-                        style="text-decoration: underline">
-            {{ post.author }}
-        </span> in <span style="font-size: 10px">
-            {{ post.publish }}
+                <a style="text-decoration: none;color: dodgerblue" href={{ post.get_absolute_url }}> {{ post.title }} By
+                    <span
+                            style="text-decoration: underline;text-underline-offset: 3px;color: coral">
+            '{{ post.author }}'
+        </span>
+                    in <span style="font-weight: bold;font-size: 10px;color: slateblue">
+        {{ post.publish|jformat:"%Y/%M/%d" }}
         </span>:
                     <span>
-            {{ post.content|truncatewords:1 }}
+        {{ post.content|truncatewords:1 }}
         </span>
                 </a>
             </li>
@@ -27,6 +40,9 @@
 
     </ul>
     {% include 'partials/Pagination.html' with page=page_obj %}
+    <a href={% url "blog:creation_post" %}>Make a new Post!</a>
+    {{ "I'm fucked UP!!!!!"|Censor }}
+
 {% endblock %}
 </body>
 </html>

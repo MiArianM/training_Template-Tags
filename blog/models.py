@@ -19,6 +19,7 @@ class POST(models.Model):
     publish = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(max_length=10, choices=Status.choices, default=Status.DRAFT)
+    reading_time = models.IntegerField(default=0)
 
     class Meta:
         ordering = ['-publish']
@@ -29,3 +30,18 @@ class POST(models.Model):
 
     def get_absolute_url(self):
         return reverse('blog:postDetail', args=[self.id])
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(POST, on_delete=models.CASCADE, related_name='comments')
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    email = models.EmailField()
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['created']
+        indexes = [models.Index(fields=['created'])]
+
+    def __str__(self):
+        return self.title
